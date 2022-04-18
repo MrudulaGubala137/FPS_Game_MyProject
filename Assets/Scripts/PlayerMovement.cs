@@ -6,10 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public int playerSpeed;
-     float rotationSpeed=2.0f;
+     /*float playerRotationSpeed=2.0f;
     
-    float cameraPitch = 0.0f;
-   public Transform playerCamera;
+    float cameraRotation = 0.0f;
+   public Transform playerCamera;*/
     void Start()
     {
        
@@ -21,17 +21,17 @@ public class PlayerMovement : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal") * playerSpeed;
         float inputZ = Input.GetAxis("Vertical") * playerSpeed;
         transform.Translate(inputX, 0f, inputZ);
-        MouseLook();
+     
     }
-    void MouseLook()
+    /*void MouseLook()
     {
         Vector2 mouseLook = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        cameraPitch-=mouseLook.y* rotationSpeed;
+        cameraRotation -=mouseLook.y* playerRotationSpeed;
 
-        cameraPitch = Mathf.Clamp(cameraPitch, -60.0f, 60.0f);
+        cameraRotation -= Mathf.Clamp(cameraRotation, -60.0f, 60.0f);
 
-        playerCamera.localEulerAngles = Vector3.right * cameraPitch;
-        transform.Rotate(Vector3.up * mouseLook.x * rotationSpeed);
+        playerCamera.localEulerAngles = Vector3.right * cameraRotation;
+        transform.Rotate(Vector3.up * mouseLook.x * playerRotationSpeed);
 
-    }
+    }*/
 }
