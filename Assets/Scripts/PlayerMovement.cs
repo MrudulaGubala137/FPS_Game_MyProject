@@ -6,13 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public int playerSpeed;
-     /*float playerRotationSpeed=2.0f;
-    
-    float cameraRotation = 0.0f;
-   public Transform playerCamera;*/
+    public int jumpForce;
+    Rigidbody rb;
+    public Animator animator;
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
        
+
     }
 
     // Update is called once per frame
@@ -21,17 +22,20 @@ public class PlayerMovement : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal") * playerSpeed;
         float inputZ = Input.GetAxis("Vertical") * playerSpeed;
         transform.Translate(inputX, 0f, inputZ);
-     
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            rb.AddForce(Vector3.up * jumpForce);
+
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            animator.SetTrigger("IsReload");
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetTrigger("IsFiring");
+        }
+
     }
-    /*void MouseLook()
-    {
-        Vector2 mouseLook = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        cameraRotation -=mouseLook.y* playerRotationSpeed;
-
-        cameraRotation -= Mathf.Clamp(cameraRotation, -60.0f, 60.0f);
-
-        playerCamera.localEulerAngles = Vector3.right * cameraRotation;
-        transform.Rotate(Vector3.up * mouseLook.x * playerRotationSpeed);
-
-    }*/
+    
 }
