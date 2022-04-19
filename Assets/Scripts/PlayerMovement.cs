@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public Transform bulletDirection;
     public GameObject gameOverPanel;
+    int maxAmmo = 25;
+    int maxHealth = 10;
+    public int ammo;
 
     void Start()
     {
@@ -39,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("IsFiring");
+            ammo--;
            /* RaycastHit hitInfo;
             if (Physics.Raycast(bulletDirection.position, bulletDirection.forward, out hitInfo, 100f))
             {
@@ -70,5 +74,18 @@ public class PlayerMovement : MonoBehaviour
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Ammo")
+        {
+            print("Ammo picked");
+            ammo =Mathf.Clamp( ammo + 25,0,maxAmmo);
+        }
+        if (other.gameObject.tag == "Medical")
+        {
+            print("Medical picked");
+            health =Mathf.Clamp( health + 3,0,maxHealth);
+        }
     }
 }
