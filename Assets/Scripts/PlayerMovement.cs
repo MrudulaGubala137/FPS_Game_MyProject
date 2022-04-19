@@ -8,12 +8,15 @@ public class PlayerMovement : MonoBehaviour
     public int playerSpeed;
     public int jumpForce;
     Rigidbody rb;
+    public int health;
     public Animator animator;
     public Transform bulletDirection;
-   
+    public GameObject gameOverPanel;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameOverPanel.SetActive(false);
       
 
     }
@@ -63,5 +66,9 @@ public class PlayerMovement : MonoBehaviour
                hitEnemy.GetComponent<EnemyController>().EnemyDead();
             }
         }
+    }
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 }

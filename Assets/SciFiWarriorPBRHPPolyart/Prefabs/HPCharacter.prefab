@@ -2121,6 +2121,8 @@ MonoBehaviour:
   target: {fileID: 6448571828119823290, guid: bb6df749effbe274bb939dc6fcecd19a, type: 3}
   stoppingDistance: 0
   state: 0
+  attackTime: 3
+  currentTime: 3
 --- !u!136 &-8782803347247905748
 CapsuleCollider:
   m_ObjectHideFlags: 0
