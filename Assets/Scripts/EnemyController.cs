@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
     }
     public void EnemyDead()
     {
-        
+        print("death fun");
         state = STATE.DEATH;
     }
     public void TurnOffAllAnim()
