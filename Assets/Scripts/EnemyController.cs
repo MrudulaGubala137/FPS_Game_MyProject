@@ -42,7 +42,7 @@ public class EnemyController : MonoBehaviour
                 }
                 
                 
-                if(DistanceToPlayer()>20f)
+                if(!NearPlayer())
                 {
                     state=STATE.IDLE;
                 }
@@ -52,13 +52,14 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("IsAttack", true);
                  if (DistanceToPlayer() > 4f)
                 {
-                    state = STATE.IDLE;
+                    state = STATE.CHASE;
 
                 }
                 break;
             case STATE.DEATH:
+                print("Dead state");
                 TurnOffAllAnim();
-                animator.SetBool("IsDeath", true);
+                animator.SetBool("IsDead", true);
                 break;
             default:
                 break;
@@ -89,7 +90,7 @@ public class EnemyController : MonoBehaviour
     }
     public void TurnOffAllAnim()
     {
-        animator.SetBool("IsDeath",false);
+        animator.SetBool("IsDead",false);
         animator.SetBool("IsRunning", false);
         animator.SetBool("IsAttack", false);
     }
