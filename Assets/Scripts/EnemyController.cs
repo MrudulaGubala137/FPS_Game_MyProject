@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
     NavMeshAgent agent;
     Animator animator;
     public GameObject target;
+    public float stoppingDistance;
     public enum STATE { IDLE, CHASE, ATTACK, DEATH}
     public STATE state=STATE.IDLE;
     void Start()
@@ -23,29 +24,33 @@ public class ZombieController : MonoBehaviour
         switch (state)
         {
             case STATE.IDLE:
+                TurnOffAllAnim();
                 if (NearPlayer())
                 {
                     state = STATE.CHASE;
                 }
                 break;
             case STATE.CHASE:
-                agent.SetDestination(target.transform.position);
                 TurnOffAllAnim();
                 animator.SetBool("IsRunning", true);
+                agent.SetDestination(target.transform.position);
+                agent.stoppingDistance = 3f;
                 print("running");
-                if (DistanceToPlayer() < 8f)
+                if (DistanceToPlayer()<=4f)
                 {
                     state = STATE.ATTACK;
                 }
-                else if (DistanceToPlayer()>30f)
-                {  state = STATE.IDLE;
-
+                
+                
+                if(DistanceToPlayer()>20f)
+                {
+                    state=STATE.IDLE;
                 }
-                    break;
+                break;
             case STATE.ATTACK:
                 TurnOffAllAnim();
                 animator.SetBool("IsAttack", true);
-                 if (DistanceToPlayer() > 30f)
+                 if (DistanceToPlayer() > 4f)
                 {
                     state = STATE.IDLE;
 
@@ -68,7 +73,7 @@ public class ZombieController : MonoBehaviour
 
     public bool NearPlayer()
     {
-        if(DistanceToPlayer() <30f)
+        if(DistanceToPlayer() <20f)
         {
             return true;
         }
@@ -76,6 +81,11 @@ public class ZombieController : MonoBehaviour
         {
             return false;
         }
+    }
+    public void EnemyDead()
+    {
+        
+        state = STATE.DEATH;
     }
     public void TurnOffAllAnim()
     {
