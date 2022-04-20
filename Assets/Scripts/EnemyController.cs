@@ -17,13 +17,17 @@ public class EnemyController : MonoBehaviour
     public float attackTime;
     public float currentTime;
     bool isGameOver=false;
-    
+    AudioClip audio;
+    public AudioSource audioSource;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         agent=GetComponent<NavMeshAgent>();
         playerMovement=target.GetComponent<PlayerMovement>();
-       
+        audio = GetComponent<AudioClip>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -47,6 +51,7 @@ public class EnemyController : MonoBehaviour
             case STATE.CHASE:
                 TurnOffAllAnim();
                 animator.SetBool("IsRunning", true);
+                audioSource.Play();
                 agent.SetDestination(target.transform.position);
                 agent.stoppingDistance = 4f;
                 print("running");

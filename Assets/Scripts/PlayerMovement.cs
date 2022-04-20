@@ -21,12 +21,16 @@ public class PlayerMovement : MonoBehaviour
     // public Transform gunPosition;
     public GameObject gun1;
     public GameObject gun2;
+    AudioClip audio;
+    public AudioSource audioSource;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gameOverPanel.SetActive(false);
         gun1.SetActive(true);
         gun2.SetActive(false);
+        audio = GetComponent<AudioClip>();
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -48,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("IsFiring");
+            audioSource.Play();
             ammo--;
             ammoText.text = "Ammo:" + ammo;
            /* RaycastHit hitInfo;
