@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,12 +16,17 @@ public class PlayerMovement : MonoBehaviour
     int maxAmmo = 25;
     int maxHealth = 10;
     public int ammo;
-
+    public Text healthText;
+    public Text ammoText;
+    // public Transform gunPosition;
+    public GameObject gun1;
+    public GameObject gun2;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gameOverPanel.SetActive(false);
-      
+        gun1.SetActive(true);
+        gun2.SetActive(false);
 
     }
 
@@ -43,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("IsFiring");
             ammo--;
+            ammoText.text = "Ammo:" + ammo;
            /* RaycastHit hitInfo;
             if (Physics.Raycast(bulletDirection.position, bulletDirection.forward, out hitInfo, 100f))
             {
@@ -56,6 +63,16 @@ public class PlayerMovement : MonoBehaviour
             }*/
             HitEnemy();
         }
+        if(Input.GetKeyDown(KeyCode.G))
+        { 
+            gun1.SetActive(false);
+            gun2.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            gun1.SetActive(true) ;
+            gun2.SetActive(false) ;
+        }
 
     }
     private void HitEnemy()
@@ -68,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 print("Enemy got hit");
                hitEnemy.GetComponent<EnemyController>().EnemyDead();
+                Destroy(hitEnemy,4f);
             }
         }
     }
@@ -77,15 +95,19 @@ public class PlayerMovement : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Ammo")
+        if(other.gameObject.tag == "Ammo"&& ammo<maxAmmo)
         {
             print("Ammo picked");
             ammo =Mathf.Clamp( ammo + 25,0,maxAmmo);
+            ammoText.text = "Ammo:" + ammo;
+            Destroy(other.gameObject);
         }
-        if (other.gameObject.tag == "Medical")
+        if (other.gameObject.tag == "Medical"&& health<maxHealth)
         {
             print("Medical picked");
-            health =Mathf.Clamp( health + 3,0,maxHealth);
+            health =Mathf.Clamp( health + 10,0,maxHealth);
+            healthText.text = "Health:"+ health;
+            Destroy(other.gameObject);
         }
     }
 }

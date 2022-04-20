@@ -118,13 +118,13 @@ public class EnemyController : MonoBehaviour
         if (currentTime <= 0f)
         {
             playerMovement.health--;
+            playerMovement.healthText.text="Health:"+playerMovement.health;
             Debug.Log(playerMovement.health);
             currentTime = attackTime;
         }
         if (playerMovement.health == 0)
         {
           isGameOver = true;
-            state = STATE.DEATH;
             TurnOffAllAnim();
             playerMovement.GameOver();
         }
