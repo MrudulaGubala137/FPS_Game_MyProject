@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     public int jumpForce;
     Rigidbody rb;
     public int health;
+    public Slider healthBar;
     public Animator animator;
     public Transform bulletDirection;
     public GameObject gameOverPanel;
     int maxAmmo = 25;
     int maxHealth = 10;
     public int ammo;
-    public Text healthText;
+   // public Text healthText;
     public Text ammoText;
     // public Transform gunPosition;
     public GameObject gun1;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthBar.value = (float)health/10;
         float inputX = Input.GetAxis("Horizontal") * playerSpeed;
         float inputZ = Input.GetAxis("Vertical") * playerSpeed;
         transform.Translate(inputX, 0f, inputZ);
@@ -111,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             print("Medical picked");
             health =Mathf.Clamp( health + 10,0,maxHealth);
-            healthText.text = "Health:"+ health;
+            //healthText.text = "Health:"+ health;
             Destroy(other.gameObject);
         }
     }

@@ -123,7 +123,7 @@ public class EnemyController : MonoBehaviour
         if (currentTime <= 0f)
         {
             playerMovement.health--;
-            playerMovement.healthText.text="Health:"+playerMovement.health;
+           // playerMovement.healthText.text="Health:"+playerMovement.health;
             Debug.Log(playerMovement.health);
             currentTime = attackTime;
         }
